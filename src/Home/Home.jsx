@@ -5,6 +5,8 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import "./Home.css";
 
 const Home = () => {
@@ -34,10 +36,17 @@ const Home = () => {
         setLoading(false);
       });
   }, []);
+
+  const navigate = useNavigate();
+
+  let handleClick = () => {
+    navigate("/details");
+  };
+
   if (loading) return "Loading...";
   if (error) return "Error: " + error;
   if (!pokemon) return "No data found";
-  if (pokemon) console.log(pokemon);
+
   return (
     <div>
       <Container>
@@ -50,7 +59,7 @@ const Home = () => {
               <Card className="mb-3 custom-card">
                 <Card.Body>
                   <Card.Title>{pokemon.name}</Card.Title>
-                  <Button variant="dark">Details</Button>
+                  <Button variant="dark" onClick={handleClick}>Details</Button>
                 </Card.Body>
               </Card>
             </Col>
